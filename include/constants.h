@@ -2,6 +2,12 @@
 #define CONSTANTS_H
 
 #define PRINT_DELAY_MS 35
+#define MAX_DIALOGUE_STEPS 1024
+#define MAX_DIALOGUE_LENGTH 4096
+#define MAX_LABEL_LENGTH 32
+
+#define BREAK_CHARACTER '\b'
+#define JUMP_CHARACTER '|'
 
 #endif
 
