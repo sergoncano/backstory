@@ -1,33 +1,46 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 #include "constants.h"
 #include "script.h"
-#include "map.c"
+#include "types.h"
 
-void print_progressively(char* string);
+#include "map.c"
+#include "front.c"
+
 void parse_script(char* script);
 void parse_step(char** script);
+step_t link_script(int index);
+void format_steps();
+void free_step_memory();
 
 char dialogue_steps[MAX_DIALOGUE_STEPS][MAX_DIALOGUE_LENGTH];
 char dialogue_jump_to[MAX_DIALOGUE_STEPS][MAX_LABEL_LENGTH];
 int no_dialogue_steps = 0;
 
+step_t steps[MAX_DIALOGUE_STEPS];
+
 int main(int argc, char *argv[]) {
     parse_script(SCRIPT);
+    map_insert(END_KEYWORD, -2);
+    format_steps();
+    print_script(steps, no_dialogue_steps);
+    free_step_memory();
+}
+
+void format_steps() {
     for(int i = 0; i < no_dialogue_steps; i++) {
-        print_progressively(dialogue_steps[i]);
-        scanf("%*c");
+        steps[i].next = map_get(dialogue_jump_to[i]);
+        steps[i].text = malloc(sizeof(dialogue_steps[i]));
+        strcpy(steps[i].text, dialogue_steps[i]);
     }
 }
 
-void print_progressively(char* string) {
-    while(*string != '\0') {
-        printf("%c", *string);
-        fflush(stdout);
-        string++;
-        usleep(PRINT_DELAY_MS * (*string == '\n' ? 10000 : 1000));
+void free_step_memory() {
+    for(int i = 0; i < no_dialogue_steps; i++) {
+        free(steps[i].text);
     }
 }
 
@@ -65,7 +78,8 @@ void parse_step(char** script_ptr) {
     if(*(script+1) != BREAK_CHARACTER) {
         char label_buf[MAX_LABEL_LENGTH];
         int j = 0;
-        while(*script != JUMP_CHARACTER) {
+        script++;
+        while(*script != BREAK_CHARACTER) {
             label_buf[j] = *script;
             j++;
             script++;
@@ -76,5 +90,5 @@ void parse_step(char** script_ptr) {
     } else {
         script += 2;
     }
-    *script_ptr = script ;
+    *script_ptr = script;
 }
