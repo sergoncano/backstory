@@ -18,6 +18,7 @@ void free_step_memory();
 
 char dialogue_steps[MAX_DIALOGUE_STEPS][MAX_DIALOGUE_LENGTH];
 char dialogue_jump_to[MAX_DIALOGUE_STEPS][MAX_LABEL_LENGTH];
+bool isChoice[MAX_DIALOGUE_STEPS];
 int no_dialogue_steps = 0;
 
 step_t steps[MAX_DIALOGUE_STEPS];
@@ -32,7 +33,11 @@ int main(int argc, char *argv[]) {
 
 void format_steps() {
     for(int i = 0; i < no_dialogue_steps; i++) {
-        steps[i].next = map_get(dialogue_jump_to[i]);
+        if(isChoice[i]) {
+            steps[i].next = -1 * atoi(dialogue_jump_to[i]);
+        } else {
+            steps[i].next = map_get(dialogue_jump_to[i]);
+        }
         steps[i].text = malloc(sizeof(dialogue_steps[i]));
         strcpy(steps[i].text, dialogue_steps[i]);
     }
@@ -78,6 +83,12 @@ void parse_step(char** script_ptr) {
     if(*(script+1) != BREAK_CHARACTER) {
         char label_buf[MAX_LABEL_LENGTH];
         int j = 0;
+        if(*(script+1) == CHOICE_CHARACTER){
+            script++;
+            isChoice[no_dialogue_steps] = true;
+        } else {
+            isChoice[no_dialogue_steps] = false;
+        }
         script++;
         while(*script != BREAK_CHARACTER) {
             label_buf[j] = *script;

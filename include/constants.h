@@ -10,7 +10,11 @@
 
 #define BREAK_CHARACTER ')'
 #define JUMP_CHARACTER '('
+#define CHOICE_CHARACTER '|'
 #define END_KEYWORD "end"
+
+#define COUNTER_TOKEN ".- "
+#define PROMPT_TOKEN "---> "
 
 #endif
 
