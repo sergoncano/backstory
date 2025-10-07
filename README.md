@@ -3,7 +3,7 @@
 Backstory is a cli text parser that generates pretty videogame-like dialogues.
 It creates an dialogue tree from a text file, letting you create an interactive story that can you can later run in a terminal.
 
-![Showcase](assets/showcase.mp4)
+![Showcase](assets/showcase.webp)
 
 ## How to write scripts for this program
 
