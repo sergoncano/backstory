@@ -6,6 +6,5 @@ inc = include_directories('include')
 
 executable('backstory', 
     'src/main.c',
-    include_directories: inc,
-    install: true
+    include_directories: inc
 )
