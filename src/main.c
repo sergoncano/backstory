@@ -24,7 +24,7 @@ step_t steps[MAX_DIALOGUE_STEPS];
 
 int main(int argc, char *argv[]) {
     parse_script(SCRIPT);
-    map_insert(END_KEYWORD, -2);
+    map_insert(END_KEYWORD, -1 * MAX_DIALOGUE_STEPS);
     format_steps();
     print_script(steps, no_dialogue_steps);
     free_step_memory();

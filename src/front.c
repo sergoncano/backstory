@@ -14,7 +14,7 @@ void print_script(step_t *steps, int no_steps) {
         print_progressively(steps[i].text);
         if(steps[i].next == -1) i++;
         else i = steps[i].next;
-        if(i==-2) break;
+        if(i==-1*MAX_DIALOGUE_STEPS) break;
         scanf("%*c");
     }
 }
