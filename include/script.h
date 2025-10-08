@@ -5,7 +5,7 @@
 Not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell,\n\
 nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat:\n\
 it was a hobbit-hole, and that means comfort.\n\
-Bilbo, the hobbit wanted to have some...\n)|2)\
+The hobbit wanted to have some...\n)|2)\
 Coffee\n)coffee)\
 Tea\n)tea)\
 (coffee(Bilbo went to grab some coffee, however there was none left.)finale)\
