@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -23,9 +22,13 @@ int no_dialogue_steps = 0;
 
 step_t steps[MAX_DIALOGUE_STEPS];
 
+int map_size = 0;
+char map_keys[MAX_DIALOGUE_STEPS][100];
+int map_values[MAX_DIALOGUE_STEPS];
+
 int main(int argc, char *argv[]) {
     parse_script(SCRIPT);
-    map_insert(END_KEYWORD, -1 * MAX_DIALOGUE_STEPS);
+    map_insert(END_KEYWORD, -1 * MAX_DIALOGUE_STEPS, map_keys, map_values, &map_size);
     format_steps();
     print_script(steps, no_dialogue_steps);
     free_step_memory();
@@ -36,7 +39,7 @@ void format_steps() {
         if(isChoice[i]) {
             steps[i].next = -1 * atoi(dialogue_jump_to[i]);
         } else {
-            steps[i].next = map_get(dialogue_jump_to[i]);
+            steps[i].next = map_get(dialogue_jump_to[i], map_keys, map_values, map_size);
         }
         steps[i].text = malloc(sizeof(dialogue_steps[i]));
         strcpy(steps[i].text, dialogue_steps[i]);
@@ -69,7 +72,7 @@ void parse_step(char** script_ptr) {
         }
         label_buf[i] = '\0';
         script++;
-        map_insert(label_buf, no_dialogue_steps);
+        map_insert(label_buf, no_dialogue_steps, map_keys, map_values, &map_size);
     }
     char buf[MAX_DIALOGUE_LENGTH];
     int i = 0;

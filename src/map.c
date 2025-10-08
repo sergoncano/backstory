@@ -1,50 +1,42 @@
-#include "constants.h"
-#include <stdio.h>
 #include <string.h>
+#include <stdio.h>
 
-int size = 0; // Current number of elements in the map
-char keys[MAX_DIALOGUE_STEPS][100]; // Array to store the keys
-int values[MAX_DIALOGUE_STEPS]; // Array to store the values
 
-// Function to get the index of a key in the keys array
-int map_get_index(char key[])
+int map_get_index(char key[], int size, char keys[][100])
 {
     for (int i = 0; i < size; i++) {
         if (strcmp(keys[i], key) == 0) {
             return i;
         }
     }
-    return -1; // Key not found
+    return -1;
 }
 
-// Function to insert a key-value pair into the map
-void map_insert(char key[], int value)
+void map_insert(char key[], int value, char keys[][100], int values[], int *size)
 {
-    int index = map_get_index(key);
-    if (index == -1) { // Key not found
-        strcpy(keys[size], key);
-        values[size] = value;
-        size++;
+    int index = map_get_index(key, *size, keys);
+    if (index == -1) {
+        strcpy(keys[*size], key);
+        values[*size] = value;
+       (*size)++;
     }
-    else { // Key found
+    else { 
         values[index] = value;
     }
 }
 
-// Function to get the value of a key in the map
-int map_get(char key[])
+int map_get(char key[], char keys[][100], int values[], int size)
 {
-    int index = map_get_index(key);
-    if (index == -1) { // Key not found
+    int index = map_get_index(key, size, keys);
+    if (index == -1) {
         return -1;
     }
-    else { // Key found
+    else {
         return values[index];
     }
 }
 
-// Function to print the map
-void print_map()
+void print_map(char keys[][100], int values[], int size)
 {
     for (int i = 0; i < size; i++) {
         printf("%s: %d\n", keys[i], values[i]);
