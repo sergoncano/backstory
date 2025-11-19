@@ -40,8 +40,8 @@ Since the script is embedded into a macro and therefore into the binary, you nee
 1.  **Clone the repository:**
 
     ```bash
-    git clone https://github.com/pvtoari/archstatus
-    cd archstatus
+    git clone https://github.com/sergoncano/backstory.git
+    cd backstory
     ```
 
 2.  **Setup meson**
