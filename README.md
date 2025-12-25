@@ -22,7 +22,7 @@ It creates an dialogue tree from a text file, letting you create an interactive 
 
 ### Interactive conditional jumps
 
-- To create a choice, write the line of text that will be displayed presenting the choice then, at the end of it, instead of using a label, use: "<CHOICE_CHARACTER>n", n being the number of options the choice will hav.
+- To create a choice, write the line of text that will be displayed presenting the choice then, at the end of it, instead of using a label, use: "<CHOICE_CHARACTER>n", n being the number of options the choice will have.
 - The next n lines must follow this pattern: The text will be what you want to be displayed as the option text. The label must be where you want to jump to if that option is taken.
 - Do not write choices within choices, instead, have the option jump to a line that contains another choice.
 
